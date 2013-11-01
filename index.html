@@ -30,7 +30,7 @@ color:white;
 
 #refresh
 {
-	width:15%;
+	width:20%;
 background: royalblue;
 border-radius: 3px;
 border: none;
@@ -50,7 +50,7 @@ div{border-bottom:2px solid green;}
 
 #myElem
 {
-width: 35%;	
+width: 45%;	
 border:0;
 margin-bottom:20px;
 }
@@ -84,7 +84,7 @@ color:blue;
 
 
 <body>
-<h1>Football news from UK dailies</h1>
+<h1>Football feeds</h1>
 <h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
 <p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
 
@@ -128,7 +128,8 @@ function fbAlert()
 	var Conf = confirm("Are you sure you want to visit my facebook profile?");
   if (Conf == true) {
 	  alert("You are now directed to facebook.com! Press back to return.");
-   location.href="https://www.facebook.com/saikiran.kannan";
+	     location.href="https://www.facebook.com/saikiran.kannan";
+		 $("#myElem").show().delay(3000).fadeOut();
   }
   else
   {
@@ -142,6 +143,7 @@ function twitterAlert()
   if (Conf == true) {
 	  alert("You are now directed to twitter.com! Press back to return.");
    location.href="https://twitter.com/saikirankannan";
+   $("#myElem").show().delay(3000).fadeOut();
   }
   else
   {
