@@ -21,6 +21,20 @@ div{border-bottom:2px solid green;}
 <script type="text/javascript">
 
 
+document.addEventListener("deviceready", init, false);
+
+function init() {
+
+	document.addEventListener("online", toggleCon, false);
+	document.addEventListener("offline", toggleCon, false);
+
+	if(navigator.network.connection.type == Connection.NONE) {
+		alert("Sorry, you are offline.Switch on your GPRS and refresh the page");
+	} else {
+	loadRss();
+	}
+
+}
 
 
 google.load("feeds", "1"); //Load Google Ajax Feed API (version 1)
@@ -76,7 +90,7 @@ alert("Error fetching feeds!")
 window.onload=function loadRss(){
 
 //alert($("#DailyMail").text());
-alert("ssd");
+
 rssfeedsetup_DM();
 rssfeedsetup_M();
 rssfeedsetup_G();
