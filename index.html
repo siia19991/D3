@@ -76,6 +76,13 @@ color: cornflowerblue;
 	text-decoration:underline;
 color:blue;	
 }
+
+#popupLayer
+{
+opacity:0.5;
+background:gray;	
+display:none;
+}
 </style>
 
 
@@ -118,6 +125,11 @@ color:blue;
 <h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
 <p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
 
+
+<div id="popupLayer">
+
+Loading please wait
+</div>
 </body>
 </html>
 
@@ -128,6 +140,7 @@ function fbAlert()
 	var Conf = confirm("Are you sure you want to visit my facebook profile?");
   if (Conf == true) {
 	  alert("You are now directed to facebook.com! Press back to return.");
+	  $("#myElem").show().delay(3000).fadeOut();
 	     location.href="https://www.facebook.com/saikiran.kannan";
 		 $("#myElem").show().delay(3000).fadeOut();
   }
@@ -142,6 +155,7 @@ function twitterAlert()
 	var Conf = confirm("Are you sure you want to visit my twitter profile?");
   if (Conf == true) {
 	  alert("You are now directed to twitter.com! Press back to return.");
+	  $("#myElem").show().delay(3000).fadeOut();
    location.href="https://twitter.com/saikirankannan";
    $("#myElem").show().delay(3000).fadeOut();
   }
@@ -158,6 +172,7 @@ function exitApp()
 {
 var Conf = confirm("Are you sure?");
   if (Conf == true) {
+	  window.open('','_self');
    window.close();	
   }
 
@@ -165,7 +180,10 @@ var Conf = confirm("Are you sure?");
 
 window.onload=function loadRss(){
 
+
+
 $("#myElem").show().delay(800).fadeOut();
+
 
 
 $( "#feedSelect").change(function() {
