@@ -21,6 +21,7 @@ if(!window.jQuery)
 body{width:100%;
 background:black;
 color:green;
+margin:0;
 }
 
 body a{
@@ -29,8 +30,17 @@ color:white;
 
 #refresh
 {
-	width:5%;
+	width:15%;
 background: royalblue;
+border-radius: 3px;
+border: none;
+margin-bottom:20px;	
+}
+
+#closeApp
+{
+	width:15%;
+background: red;
 border-radius: 3px;
 border: none;
 margin-bottom:20px;	
@@ -40,7 +50,7 @@ div{border-bottom:2px solid green;}
 
 #myElem
 {
-width: 15%;	
+width: 35%;	
 border:0;
 margin-bottom:20px;
 }
@@ -48,7 +58,24 @@ margin-bottom:20px;
 {
 color:#0F0;	
 }
+#feedSelect
+{width:31%
+background: aliceblue;
+color: steelblue;
+}
 
+#twitter
+{
+	cursor:pointer;
+	text-decoration:underline;
+color: cornflowerblue;	
+}
+#facebook
+{
+		cursor:pointer;
+	text-decoration:underline;
+color:blue;	
+}
 </style>
 
 
@@ -59,8 +86,20 @@ color:#0F0;
 <body>
 <h1>Football news from UK dailies</h1>
 <h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
+<p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
 
 <input type="button" id="refresh" value="Refresh" onClick="refresh()">
+<input type="button" id="closeApp" value="Exit" onClick="exitApp()"><br>
+
+<select id="feedSelect">
+<option value="default">Select a choice of your Football Feed</option>
+<option value="DM">Daily Mail</option>
+<option value="M">Mirror</option>
+<option value="G">The Guardian</option>
+<option value="I">The Independent</option>
+<option value="S">Sky Sports</option>
+</select>
+
 
 <div id="myElem">
 <h4>LOADING...</h4>
@@ -76,14 +115,50 @@ color:#0F0;
 <div id="Independent"></div><br><br>
 <div id="SkySports"></div><br><br>
 
+<h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
+<p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
+
 </body>
 </html>
 
 <script type="text/javascript">
 
+function fbAlert()
+{
+	var Conf = confirm("Are you sure you want to visit my facebook profile?");
+  if (Conf == true) {
+	  alert("You are now directed to facebook.com! Press back to return.");
+   location.href="https://www.facebook.com/saikiran.kannan";
+  }
+  else
+  {
+	return false;  
+  }
+}
+
+function twitterAlert()
+{
+	var Conf = confirm("Are you sure you want to visit my twitter profile?");
+  if (Conf == true) {
+	  alert("You are now directed to twitter.com! Press back to return.");
+   location.href="https://twitter.com/saikirankannan";
+  }
+  else
+  {
+	return false;  
+  }
+}
 function refresh()
 {
 	window.location.reload(true);
+}
+function exitApp()
+{
+var Conf = confirm("Are you sure?");
+  if (Conf == true) {
+   window.close();	
+  }
+
 }
 
 window.onload=function loadRss(){
@@ -91,17 +166,51 @@ window.onload=function loadRss(){
 $("#myElem").show().delay(800).fadeOut();
 
 
-
+$( "#feedSelect").change(function() {
+ 
+if(($( "#feedSelect option:selected" ).val())=="DM")
+{
+	if(!($("#DailyMail").children().hasClass("ulClass")))
 rssfeedsetup_DM();
+}
+if(($( "#feedSelect option:selected" ).val())=="M")
+{
+	if(!($("#Mirror").children().hasClass("ulClass")))
 rssfeedsetup_M();
+}
+if(($( "#feedSelect option:selected" ).val())=="G")
+{
+	if(!($("#Guardian").children().hasClass("ulClass")))
 rssfeedsetup_G();
+}
+if(($( "#feedSelect option:selected" ).val())=="I")
+{
+	if(!($("#Independent").children().hasClass("ulClass")))
 rssfeedsetup_I();
+}
+if(($( "#feedSelect option:selected" ).val())=="S")
+{
+	if(!($("#SkySports").children().hasClass("ulClass")))
 rssfeedsetup_S();
+}
 
 
+});
 
+//alert($( "#feedSelect option:selected" ).val());
+//if(($( "#feedSelect option:selected" ).val())=="DM")
+//{
+//rssfeedsetup_DM();
+//}
+//rssfeedsetup_M();
+//rssfeedsetup_G();
+//rssfeedsetup_I();
+//rssfeedsetup_S();
 
 }
+
+
+
 
 
 
@@ -113,7 +222,7 @@ rssfeedsetup_S();
 var feedcontainer_DM=document.getElementById("DailyMail")
 var feedurl_DM="http://www.dailymail.co.uk/sport/teampages/manchester-united.rss"
 var feedlimit_DM=10
-var rssoutput_DM="<b>Daily Mail:</b><br /><ul>"
+var rssoutput_DM="<b>Daily Mail:</b><br /><ul class='ulClass'>"
 
 function rssfeedsetup_DM(){
 var feedpointer_DM=new google.feeds.Feed(feedurl_DM) //Google Feed API method
@@ -123,11 +232,14 @@ feedpointer_DM.load(displayfeed_DM) //Google Feed API method
 }
 
 function displayfeed_DM(result_DM){
+	
 if (!result_DM.error){
-var thefeeds_DM=result_DM.feed.entries
+	
+var thefeeds_DM=result_DM.feed.entries;
+
 for (var i=0; i<thefeeds_DM.length; i++)
-rssoutput_DM+="<li><a href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li>"
-rssoutput_DM+="</ul>"
+rssoutput_DM+="<li><a href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li>";
+rssoutput_DM+="</ul>";
 feedcontainer_DM.innerHTML=rssoutput_DM;
 }
 else
@@ -144,7 +256,7 @@ alert("Error fetching feeds!")
 var feedcontainer_M=document.getElementById("Mirror")
 var feedurl_M="http://www.mirror.co.uk/sport/football/rss.xml"
 var feedlimit_M=10
-var rssoutput_M="<b>Mirror:</b><br /><ul>"
+var rssoutput_M="<b>Mirror:</b><br /><ul class='ulClass'>"
 
 function rssfeedsetup_M(){
 var feedpointer_M=new google.feeds.Feed(feedurl_M) //Google Feed API method
@@ -174,7 +286,7 @@ alert("Error fetching feeds!")
 var feedcontainer_G=document.getElementById("Guardian")
 var feedurl_G="http://feeds.theguardian.com/theguardian/football/rss"
 var feedlimit_G=10
-var rssoutput_G="<b>Guardian:</b><br /><ul>"
+var rssoutput_G="<b>Guardian:</b><br /><ul class='ulClass'>"
 
 function rssfeedsetup_G(){
 var feedpointer_G=new google.feeds.Feed(feedurl_G) //Google Feed API method
@@ -203,7 +315,7 @@ alert("Error fetching feeds!")
 var feedcontainer_I=document.getElementById("Independent")
 var feedurl_I="http://rss.feedsportal.com/c/266/f/3785/index.rss"
 var feedlimit_I=10
-var rssoutput_I="<b>The Independent:</b><br /><ul>"
+var rssoutput_I="<b>The Independent:</b><br /><ul class='ulClass'>"
 
 function rssfeedsetup_I(){
 var feedpointer_I=new google.feeds.Feed(feedurl_I) //Google Feed API method
@@ -230,7 +342,7 @@ alert("Error fetching feeds!")
 var feedcontainer_S=document.getElementById("SkySports")
 var feedurl_S="http://www1.skysports.com/feeds/11095/news.xml"
 var feedlimit_S=10
-var rssoutput_S="<b>Sky Sports Football:</b><br /><ul>"
+var rssoutput_S="<b>Sky Sports Football:</b><br /><ul class='ulClass'>"
 
 function rssfeedsetup_S(){
 var feedpointer_S=new google.feeds.Feed(feedurl_S) //Google Feed API method
