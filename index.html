@@ -1,12 +1,24 @@
+<!DOCTYPE html>
+<html>
+
 <head>
 <script type="text/javascript" src="http://www.google.com/jsapi?">
-
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
+
+<script type="text/javascript">
+alert("Welcome to Football Feeds. Copyrights @ Saikiran Kannan ");
+if(!window.jQuery)
+{
+   alert("Sorry! Data connection is disabled currently, Please enable it and refresh the App.");
+	
+
+}
+</script>
+
 <style>
 body{width:100%;
-
 background:black;
 color:green;
 }
@@ -15,34 +27,44 @@ body a{
 color:white;
 }
 
-div{border-bottom:2px solid green;}
-</style>
-
-<script type="text/javascript">
-
-
-document.addEventListener("deviceready", init, false);
-
-function init() {
-
-	document.addEventListener("online", toggleCon, false);
-	document.addEventListener("offline", toggleCon, false);
-
-	if(navigator.network.connection.type == Connection.NONE) {
-		alert("Sorry, you are offline.Switch on your GPRS and refresh the page");
-	} else {
-	loadRss();
-	}
-
+#refresh
+{
+	width:5%;
+background: royalblue;
+border-radius: 3px;
+border: none;
+margin-bottom:20px;	
 }
 
+div{border-bottom:2px solid green;}
 
-google.load("feeds", "1"); //Load Google Ajax Feed API (version 1)
-</script>
+#myElem
+{
+width: 15%;	
+border:0;
+margin-bottom:20px;
+}
+#myElem h4
+{
+color:#0F0;	
+}
+
+</style>
+
+
 </head>
+
+
+
 <body>
 <h1>Football news from UK dailies</h1>
 <h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
+
+<input type="button" id="refresh" value="Refresh" onClick="refresh()">
+
+<div id="myElem">
+<h4>LOADING...</h4>
+<img width="100%" alt="Data Connection unavailable" id="refreshImg" src="http://maps.nrel.gov/sites/all/modules/custom_modules/transatlas/assets/images/loading_bar.gif"></div>
 
 <div id="DailyMail"></div><br><br>
 
@@ -55,9 +77,35 @@ google.load("feeds", "1"); //Load Google Ajax Feed API (version 1)
 <div id="SkySports"></div><br><br>
 
 </body>
-
+</html>
 
 <script type="text/javascript">
+
+function refresh()
+{
+	window.location.reload(true);
+}
+
+window.onload=function loadRss(){
+
+$("#myElem").show().delay(800).fadeOut();
+
+
+
+rssfeedsetup_DM();
+rssfeedsetup_M();
+rssfeedsetup_G();
+rssfeedsetup_I();
+rssfeedsetup_S();
+
+
+
+
+}
+
+
+
+
 
 
 /*Dailymail*/
@@ -71,6 +119,7 @@ function rssfeedsetup_DM(){
 var feedpointer_DM=new google.feeds.Feed(feedurl_DM) //Google Feed API method
 feedpointer_DM.setNumEntries(feedlimit_DM) //Google Feed API method
 feedpointer_DM.load(displayfeed_DM) //Google Feed API method
+
 }
 
 function displayfeed_DM(result_DM){
@@ -80,24 +129,9 @@ for (var i=0; i<thefeeds_DM.length; i++)
 rssoutput_DM+="<li><a href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li>"
 rssoutput_DM+="</ul>"
 feedcontainer_DM.innerHTML=rssoutput_DM;
-
-
 }
 else
 alert("Error fetching feeds!")
-}
-
-window.onload=function loadRss(){
-
-//alert($("#DailyMail").text());
-
-rssfeedsetup_DM();
-rssfeedsetup_M();
-rssfeedsetup_G();
-rssfeedsetup_I();
-rssfeedsetup_S();
-
-
 }
 
 
@@ -215,5 +249,11 @@ feedcontainer_S.innerHTML=rssoutput_S
 else
 alert("Error fetching feeds!")
 }
+
+</script>
+
+
+<script type="text/javascript">
+google.load("feeds", "1"); //Load Google Ajax Feed API (version 1)
 
 </script>
