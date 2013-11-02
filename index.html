@@ -83,7 +83,7 @@ opacity:0.5;
 background:#0F0;	
 display:none;
 height:100%;
-width:100%;
+width:50%;
 }
 
 #layerP
@@ -152,8 +152,8 @@ font-weight:bold;
 function linkopen()
 {
  alert("You are now directed to a 3rd party website! Press back to return to the App.");	
-	 $("#popupLayer").show().delay(4000).fadeOut();
-	  $("#myElemLayer").show().delay(4000).fadeOut();
+	 $("#popupLayer").show().delay(8000).fadeOut();
+	  $("#myElemLayer").show().delay(8000).fadeOut();
 }
 
 function fbAlert()
@@ -161,9 +161,9 @@ function fbAlert()
 	var Conf = confirm("Are you sure you want to visit my facebook profile?");
   if (Conf == true) {
 	  alert("You are now directed to facebook.com! Press back to return.");
-	  $("#myElem").show().delay(3000).fadeOut();
+	  $("#myElem").show().delay(6000).fadeOut();
 	     location.href="https://www.facebook.com/saikiran.kannan";
-		 $("#myElem").show().delay(3000).fadeOut();
+		 $("#myElem").show().delay(6000).fadeOut();
   }
   else
   {
@@ -176,9 +176,9 @@ function twitterAlert()
 	var Conf = confirm("Are you sure you want to visit my twitter profile?");
   if (Conf == true) {
 	  alert("You are now directed to twitter.com! Press back to return.");
-	  $("#myElem").show().delay(3000).fadeOut();
+	  $("#myElem").show().delay(6000).fadeOut();
    location.href="https://twitter.com/saikirankannan";
-   $("#myElem").show().delay(3000).fadeOut();
+   $("#myElem").show().delay(6000).fadeOut();
   }
   else
   {
@@ -203,7 +203,7 @@ window.onload=function loadRss(){
 
 
 
-$("#myElem").show().delay(800).fadeOut();
+$("#myElem").show().delay(2000).fadeOut();
 
 
 
