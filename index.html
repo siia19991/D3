@@ -37,14 +37,7 @@ border: none;
 margin-bottom:20px;	
 }
 
-#closeApp
-{
-	width:15%;
-background: red;
-border-radius: 3px;
-border: none;
-margin-bottom:20px;	
-}
+
 
 div{border-bottom:2px solid green;}
 
@@ -53,6 +46,11 @@ div{border-bottom:2px solid green;}
 width: 45%;	
 border:0;
 margin-bottom:20px;
+}
+#myElemLayer
+{
+width: 100%;	
+border:0;	
 }
 #myElem h4
 {
@@ -79,9 +77,20 @@ color:blue;
 
 #popupLayer
 {
+	position:fixed;
+	top:0px;
 opacity:0.5;
-background:gray;	
+background:red;	
 display:none;
+height:100%;
+width:100%;
+}
+
+#layerP
+{
+font-size:136px;
+text-align:center;
+font-weight:bold;	
 }
 </style>
 
@@ -95,8 +104,8 @@ display:none;
 <h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
 <p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
 
-<input type="button" id="refresh" value="Refresh" onClick="refresh()">
-<input type="button" id="closeApp" value="Exit" onClick="exitApp()"><br>
+<input type="button" id="refresh" value="Refresh" onClick="refresh()"><br>
+<!--<input type="button" id="closeApp" value="Exit" onClick="exitApp()"><br>-->
 
 <select id="feedSelect">
 <option value="default">Select a choice of your Football Feed</option>
@@ -110,7 +119,7 @@ display:none;
 
 <div id="myElem">
 <h4>LOADING...</h4>
-<img width="100%" alt="Data Connection unavailable" id="refreshImg" src="http://maps.nrel.gov/sites/all/modules/custom_modules/transatlas/assets/images/loading_bar.gif"></div>
+<img width="100%" alt="No Data Connection" id="refreshImg" src="http://maps.nrel.gov/sites/all/modules/custom_modules/transatlas/assets/images/loading_bar.gif"></div>
 
 <div id="DailyMail"></div><br><br>
 
@@ -127,13 +136,23 @@ display:none;
 
 
 <div id="popupLayer">
-
-Loading please wait
+<p id="layerP">Loading...Please Wait !</p>
+<div id="myElemLayer">
+<img width="100%" alt="No Data Connection" id="refreshImg" src="http://maps.nrel.gov/sites/all/modules/custom_modules/transatlas/assets/images/loading_bar.gif"></div>
 </div>
+
+
 </body>
 </html>
 
 <script type="text/javascript">
+
+function linkopen()
+{
+ alert("You are now directed to a 3rd party website! Press back to return to the App.");	
+	 $("#popupLayer").show().delay(4000).fadeOut();
+	  $("#myElemLayer").show().delay(4000).fadeOut();
+}
 
 function fbAlert()
 {
@@ -168,7 +187,7 @@ function refresh()
 {
 	window.location.reload(true);
 }
-function exitApp()
+/*function exitApp()
 {
 var Conf = confirm("Are you sure?");
   if (Conf == true) {
@@ -176,7 +195,7 @@ var Conf = confirm("Are you sure?");
    window.close();	
   }
 
-}
+}*/
 
 window.onload=function loadRss(){
 
@@ -258,7 +277,7 @@ if (!result_DM.error){
 var thefeeds_DM=result_DM.feed.entries;
 
 for (var i=0; i<thefeeds_DM.length; i++)
-rssoutput_DM+="<li><a href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li>";
+rssoutput_DM+="<li><a onclick='linkopen()' href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li>";
 rssoutput_DM+="</ul>";
 feedcontainer_DM.innerHTML=rssoutput_DM;
 }
@@ -288,7 +307,7 @@ function displayfeed_M(result_M){
 if (!result_M.error){
 var thefeeds_M=result_M.feed.entries
 for (var i=0; i<thefeeds_M.length; i++)
-rssoutput_M+="<li><a href='" + thefeeds_M[i].link + "'>" + thefeeds_M[i].title + "</a></li>"
+rssoutput_M+="<li><a onclick='linkopen()' href='" + thefeeds_M[i].link + "'>" + thefeeds_M[i].title + "</a></li>"
 rssoutput_M+="</ul>"
 feedcontainer_M.innerHTML=rssoutput_M
 }
@@ -318,7 +337,7 @@ function displayfeed_G(result_G){
 if (!result_G.error){
 var thefeeds_G=result_G.feed.entries
 for (var i=0; i<thefeeds_G.length; i++)
-rssoutput_G+="<li><a href='" + thefeeds_G[i].link + "'>" + thefeeds_G[i].title + "</a></li>"
+rssoutput_G+="<li><a onclick='linkopen()' href='" + thefeeds_G[i].link + "'>" + thefeeds_G[i].title + "</a></li>"
 rssoutput_G+="</ul>"
 feedcontainer_G.innerHTML=rssoutput_G
 }
@@ -347,7 +366,7 @@ function displayfeed_I(result_I){
 if (!result_I.error){
 var thefeeds_I=result_I.feed.entries
 for (var i=0; i<thefeeds_I.length; i++)
-rssoutput_I+="<li><a href='" + thefeeds_I[i].link + "'>" + thefeeds_I[i].title + "</a></li>"
+rssoutput_I+="<li><a onclick='linkopen()' href='" + thefeeds_I[i].link + "'>" + thefeeds_I[i].title + "</a></li>"
 rssoutput_I+="</ul>"
 feedcontainer_I.innerHTML=rssoutput_I
 }
@@ -374,7 +393,7 @@ function displayfeed_S(result_S){
 if (!result_S.error){
 var thefeeds_S=result_S.feed.entries
 for (var i=0; i<thefeeds_S.length; i++)
-rssoutput_S+="<li><a href='" + thefeeds_S[i].link + "'>" + thefeeds_S[i].title + "</a></li>"
+rssoutput_S+="<li><a onclick='linkopen()' href='" + thefeeds_S[i].link + "'>" + thefeeds_S[i].title + "</a></li>"
 rssoutput_S+="</ul>"
 feedcontainer_S.innerHTML=rssoutput_S
 }
