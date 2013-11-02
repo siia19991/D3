@@ -114,6 +114,7 @@ font-weight:bold;
 <option value="G">The Guardian</option>
 <option value="I">The Independent</option>
 <option value="S">Sky Sports</option>
+<option value="B">BBC Football</option>
 </select>
 
 
@@ -130,6 +131,7 @@ font-weight:bold;
 
 <div id="Independent"></div><br><br>
 <div id="SkySports"></div><br><br>
+<div id="BBCSports"></div><br><br>
 
 <h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
 <p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
@@ -231,6 +233,11 @@ if(($( "#feedSelect option:selected" ).val())=="S")
 {
 	if(!($("#SkySports").children().hasClass("ulClass")))
 rssfeedsetup_S();
+}
+if(($( "#feedSelect option:selected" ).val())=="B")
+{
+	if(!($("#BBCSports").children().hasClass("ulClass")))
+rssfeedsetup_B();
 }
 
 
@@ -374,7 +381,7 @@ else
 alert("Error fetching feeds!")
 }
 
-
+/*Sky Sports*/
 
 
 
@@ -400,6 +407,41 @@ feedcontainer_S.innerHTML=rssoutput_S
 else
 alert("Error fetching feeds!")
 }
+
+
+
+/*BBC Sports*/
+
+
+var feedcontainer_B=document.getElementById("BBCSports")
+var feedurl_B="http://feeds.bbci.co.uk/sport/0/football/rss.xml?edition=uk"
+var feedlimit_B=10
+var rssoutput_B="<b>BBC Sports:</b><br /><ul class='ulClass'>"
+
+function rssfeedsetup_B(){
+var feedpointer_B=new google.feeds.Feed(feedurl_B) //Google Feed API method
+feedpointer_B.setNumEntries(feedlimit_B) //Google Feed API method
+feedpointer_B.load(displayfeed_B) //Google Feed API method
+
+}
+
+function displayfeed_B(result_B){
+	
+if (!result_B.error){
+	
+var thefeeds_B=result_B.feed.entries;
+
+for (var i=0; i<thefeeds_B.length; i++)
+rssoutput_B+="<li><a onclick='linkopen()' href='" + thefeeds_B[i].link + "'>" + thefeeds_B[i].title + "</a></li>";
+rssoutput_B+="</ul>";
+feedcontainer_B.innerHTML=rssoutput_B;
+}
+else
+alert("Error fetching feeds!")
+}
+
+
+
 
 </script>
 
