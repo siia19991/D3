@@ -8,7 +8,7 @@
 </script>
 
 <script type="text/javascript">
-alert("Welcome to Football Feeds. Copyrights @ Saikiran Kannan ");
+alert("Welcome to Football Feeds !");
 if(!window.jQuery)
 {
    alert("Sorry! Data connection is disabled currently, Please enable it and refresh the App.");
@@ -30,7 +30,7 @@ color:white;
 
 #refresh
 {
-	width:20%;
+	width:93px;
 background: royalblue;
 border-radius: 3px;
 border: none;
@@ -92,6 +92,44 @@ font-size:136px;
 text-align:center;
 font-weight:bold;	
 }
+
+.fbShare {
+background: green;
+color: blue;
+border-radius: 4px;
+text-transform: uppercase;
+font-size: 65%;
+cursor:pointer;
+}
+.twShare {
+background: green;
+color: cornflowerblue;
+border-radius: 4px;
+text-transform: uppercase;
+font-size: 65%;
+cursor: pointer;
+margin-left: 3%;
+}
+
+#footballTweets{display:none;margin-bottom:40px;width:100%;background:green}
+
+#LiveFootballTweets{width:137px;
+background: royalblue;
+border-radius: 3px;
+border: none;
+margin-bottom:20px;	}
+
+#CloseFootballTweets{width: 146px;
+background: royalblue;
+border-radius: 3px;
+border: none;
+margin-bottom: 20px;
+margin-left: 22%;
+}
+
+a#mailLink{color:tomato}
+
+
 </style>
 
 
@@ -100,12 +138,22 @@ font-weight:bold;
 
 
 <body>
-<h1>Football feeds</h1>
-<h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
-<p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
 
-<input type="button" id="refresh" value="Refresh" onClick="refresh()"><br>
+<h1>Football feeds</h1>
+<h5>*Developed by Saikiran Kannan.<br>All &copy; reserved @ StudioBlue </h4>
+<p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> || <span id="facebook" onClick="fbAlert()">facebook</span> || <a id="mailLink" href="mailto:siia19991@hotmail.com?Subject=FootballFeeds_Feedback" target="_top">Mail</a><br></p>
+
+
+<input type="button" id="refresh" value="Refresh" onClick="refresh()">  <input type="button" id="LiveFootballTweets" value="Live Football Tweets!" onClick="LFT()"><br>
 <!--<input type="button" id="closeApp" value="Exit" onClick="exitApp()"><br>-->
+
+<div id="footballTweets">
+
+<a class="twitter-timeline" width="500" height="400" href="https://twitter.com/saikirankannan/footballfeeds" data-widget-id="408899324823613442">Tweets from https://twitter.com/saikirankannan/footballfeeds</a> <br>    <input type="button" id="CloseFootballTweets" value="Close Football Tweets!" onClick="CFT()">
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</div>
+
 
 <select id="feedSelect">
 <option value="default">Select a choice of your Football Feed</option>
@@ -133,7 +181,7 @@ font-weight:bold;
 <div id="SkySports"></div><br><br>
 <div id="BBCSports"></div><br><br>
 
-<h5>*Developed by Saikiran Kannan.All &copy; reserved @ Saikiran Kannan. </h4>
+<h5>*Developed by Saikiran Kannan.<br>All &copy; reserved @ StudioBlue </h4>
 <p>Connect with me on <span id="twitter" onClick="twitterAlert()">twitter</span> and <span id="facebook" onClick="fbAlert()">facebook</span></p>
 
 
@@ -149,8 +197,47 @@ font-weight:bold;
 
 <script type="text/javascript">
 
+ 
+ function LFT()
+ {
+ $('#footballTweets').show();
+ 
+ }
+  function CFT()
+ {
+ $('#footballTweets').hide();
+ 
+ }
+
+ 
+
+
+
+
+
+
+$(document).on('click', '.fbShare', function () {
+   var url=($(this).attr('id'));
+var title=($(this).siblings('li').children('a').text());   
+   window.open('http://www.facebook.com/sharer.php?s=100&p[title]='+title+'&p[summary]='+'&p[url]='+url+'&p[images[0]=');
+ // window.open('https://twitter.com/share?text=' +title + '&url=' +url);
+  
+});
+
+
+$(document).on('click', '.twShare', function () {
+   var url=($(this).attr('id'));
+var title=($(this).siblings('li').children('a').text());   
+   //window.open('http://www.facebook.com/sharer.php?s=100&p[title]='+title+'&p[summary]='+'&p[url]='+url+'&p[images[0]=');
+  window.open('https://twitter.com/share?text=' +title + '&url=' +url);
+  
+});
+
+
+
 function linkopen()
 {
+
  alert("You are now directed to a 3rd party website! Press back to return to the App.");	
 	 $("#popupLayer").show().delay(8000).fadeOut();
 	  $("#myElemLayer").show().delay(8000).fadeOut();
@@ -284,7 +371,7 @@ if (!result_DM.error){
 var thefeeds_DM=result_DM.feed.entries;
 
 for (var i=0; i<thefeeds_DM.length; i++)
-rssoutput_DM+="<li><a onclick='linkopen()' href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li>";
+rssoutput_DM+="<ul><li><a onclick='linkopen()' href='" + thefeeds_DM[i].link + "'>" + thefeeds_DM[i].title + "</a></li><span class='fbShare' id='"+ thefeeds_DM[i].link +"' >share on Facebook</span><span class='twShare' id='"+ thefeeds_DM[i].link +"' >share on Twitter</span></ul>";
 rssoutput_DM+="</ul>";
 feedcontainer_DM.innerHTML=rssoutput_DM;
 }
@@ -314,7 +401,7 @@ function displayfeed_M(result_M){
 if (!result_M.error){
 var thefeeds_M=result_M.feed.entries
 for (var i=0; i<thefeeds_M.length; i++)
-rssoutput_M+="<li><a onclick='linkopen()' href='" + thefeeds_M[i].link + "'>" + thefeeds_M[i].title + "</a></li>"
+rssoutput_M+="<ul><li><a onclick='linkopen()'  href='" + thefeeds_M[i].link + "'>" + thefeeds_M[i].title + "</a></li> <span class='fbShare' id='"+ thefeeds_M[i].link +"' >share on Facebook</span><span class='twShare' id='"+ thefeeds_M[i].link +"' >share on Twitter</span></ul>"
 rssoutput_M+="</ul>"
 feedcontainer_M.innerHTML=rssoutput_M
 }
@@ -344,7 +431,7 @@ function displayfeed_G(result_G){
 if (!result_G.error){
 var thefeeds_G=result_G.feed.entries
 for (var i=0; i<thefeeds_G.length; i++)
-rssoutput_G+="<li><a onclick='linkopen()' href='" + thefeeds_G[i].link + "'>" + thefeeds_G[i].title + "</a></li>"
+rssoutput_G+="<ul><li><a onclick='linkopen()' href='" + thefeeds_G[i].link + "'>" + thefeeds_G[i].title + "</a></li><span class='fbShare' id='"+ thefeeds_G[i].link +"' >share on Facebook</span><span class='twShare' id='"+ thefeeds_G[i].link +"' >share on Twitter</span></ul>"
 rssoutput_G+="</ul>"
 feedcontainer_G.innerHTML=rssoutput_G
 }
@@ -373,7 +460,7 @@ function displayfeed_I(result_I){
 if (!result_I.error){
 var thefeeds_I=result_I.feed.entries
 for (var i=0; i<thefeeds_I.length; i++)
-rssoutput_I+="<li><a onclick='linkopen()' href='" + thefeeds_I[i].link + "'>" + thefeeds_I[i].title + "</a></li>"
+rssoutput_I+="<ul><li><a onclick='linkopen()' href='" + thefeeds_I[i].link + "'>" + thefeeds_I[i].title + "</a></li><span class='fbShare' id='"+ thefeeds_I[i].link +"' >share on Facebook</span><span class='twShare' id='"+ thefeeds_I[i].link +"' >share on Twitter</span></ul>"
 rssoutput_I+="</ul>"
 feedcontainer_I.innerHTML=rssoutput_I
 }
@@ -400,7 +487,7 @@ function displayfeed_S(result_S){
 if (!result_S.error){
 var thefeeds_S=result_S.feed.entries
 for (var i=0; i<thefeeds_S.length; i++)
-rssoutput_S+="<li><a onclick='linkopen()' href='" + thefeeds_S[i].link + "'>" + thefeeds_S[i].title + "</a></li>"
+rssoutput_S+="<ul><li><a onclick='linkopen()' href='" + thefeeds_S[i].link + "'>" + thefeeds_S[i].title + "</a></li><span class='fbShare' id='"+ thefeeds_S[i].link +"' >share on Facebook</span><span class='twShare' id='"+ thefeeds_S[i].link +"' >share on Twitter</span></ul>"
 rssoutput_S+="</ul>"
 feedcontainer_S.innerHTML=rssoutput_S
 }
@@ -432,7 +519,7 @@ if (!result_B.error){
 var thefeeds_B=result_B.feed.entries;
 
 for (var i=0; i<thefeeds_B.length; i++)
-rssoutput_B+="<li><a onclick='linkopen()' href='" + thefeeds_B[i].link + "'>" + thefeeds_B[i].title + "</a></li>";
+rssoutput_B+="<ul><li><a onclick='linkopen()' href='" + thefeeds_B[i].link + "'>" + thefeeds_B[i].title + "</a></li><span class='fbShare' id='"+ thefeeds_B[i].link +"' >share on Facebook</span><span class='twShare' id='"+ thefeeds_B[i].link +"' >share on Twitter</span></ul>";
 rssoutput_B+="</ul>";
 feedcontainer_B.innerHTML=rssoutput_B;
 }
