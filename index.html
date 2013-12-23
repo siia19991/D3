@@ -100,6 +100,8 @@ border-radius: 4px;
 text-transform: uppercase;
 font-size: 65%;
 cursor:pointer;
+padding-top: 6px;
+padding-bottom: 6px;
 }
 .twShare {
 background: green;
@@ -109,6 +111,8 @@ text-transform: uppercase;
 font-size: 65%;
 cursor: pointer;
 margin-left: 3%;
+padding-top: 6px;
+padding-bottom: 6px;
 }
 
 #footballTweets{display:none;margin-bottom:40px;width:100%;background:green}
@@ -196,7 +200,21 @@ a#mailLink{color:tomato}
 </html>
 
 <script type="text/javascript">
+/*
+var getTweets = function(user){
+    var url='http://twitter.com/status/user_timeline/' + user + '.json';
+    return $.get(url, {count:5}, null, 'jsonp');
+}
 
+$.when( getTweets('saikirankannan'),
+        getTweets('greenling_com'),
+        getTweets('themomandpops')
+      ).done(function(atxArgs, greenlingArgs, momandpopsArgs){
+    var allTweets = [].concat(atxArgs[0]).concat(greenlingArgs[0]).concat(momandpopsArgs[0]);
+    var sortedTweets = sortTweets(allTweets);
+    showTweets(sortedTweets);
+      });
+ */
  
  function LFT()
  {
